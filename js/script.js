@@ -10,27 +10,33 @@ displayText('Click the button and type in temperature');
 
 // button Celsius -> Fahrenheit
 button1.addEventListener('click',function(){
-    temperatureC = window.prompt('Type in temperature in Celsius');
-    if (isNaN(temperatureC)) {
-       displayText(temperatureC + ' is not a number. Please type in a number.');
-    } 
-    else {
-        temperatureF = calculateCtoF(temperatureC);
-        displayText('Temperature is ' + temperatureC + ' in Celsius. It is ' + temperatureF + ' in Fahrenheit.' + weatherConditions(temperatureC));
-    }
+temperatureC = window.prompt('Type in temperature in Celsius');
+temperatureC = temperatureC.split(",").join(".");
+verifyCalculateAndDisplay(temperatureC,calculateCtoF,'Celsius','Fahrenheit');
 });
 
 // button Fahrenheit -> Celsius
 button2.addEventListener('click',function(){
-    temperatureF = window.prompt('Type in temperature in Fahrenheit');
-    if (isNaN(temperatureF)) {
-        displayText(temperatureF + ' is not a number. Please type in a number.');
-    } 
-    else {
-        temperatureC = calculateFtoC(temperatureF);
-        displayText('Temperature is ' + temperatureF + ' in Fahrenheit. It is ' + temperatureC + ' in Celsius.' + weatherConditions(temperatureC));
-    }
+temperatureF = window.prompt('Type in temperature in Fahrenheit');
+temperatureF = temperatureF.split(",").join(".");
+verifyCalculateAndDisplay(temperatureF,calculateFtoC,'Fahrenheit','Celsius');
 });
+
+function verifyCalculateAndDisplay (temperatureIn,callCalculateTempFunction,tempInName,tempOutName) {
+    if (isNaN(temperatureIn)) {
+        displayText (temperatureIn + ' is not a number. Please type in a number.');
+    }
+    else {
+        var temperatureOut = callCalculateTempFunction(temperatureIn);
+        if (tempInName === 'Celsius') {
+            displayText('Temperature is '+temperatureIn+' in '+tempInName+'. It is '+temperatureOut+' in '+tempOutName+ weatherConditions(temperatureIn));
+        }
+        else {
+            displayText('Temperature is '+temperatureIn+' in '+tempInName+'. It is '+temperatureOut+' in '+tempOutName+ weatherConditions(temperatureOut));
+        }
+    }
+}
+
 
 // function: change Celsius to Fahrenheit 
 function calculateCtoF(tempC) {
@@ -49,7 +55,7 @@ function weatherConditions(tempC) {
     if (tempC < 0){
         return ' It is below zero Celsius. It is freezing cold.';
     }
-    else if (tempC == 0) {
+    else if (tempC === 0) {
         return ' It is exactly zero degrees Celsius. Water starts to freeze.';
     }
     else if (tempC > 0 && tempC < 15) {

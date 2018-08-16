@@ -19,7 +19,7 @@
     "watch:sassprefixer": "onchange -d 100 sass/style.css -- run-npm-all sassprefixer:*",
     "sassprefixer:sass": "node-sass --output-style expanded --source-map true -o css sass",
     "sassprefixer:autoprefixer": "autoprefixer-cli css/style.css",
-    "watch:browsersync": "browser-sync start --server --files 'css/*.css' '*.html'"
+    "watch:browsersync": "browser-sync start --server --files 'css/*.css' '*.html' 'js/script.js' "
   },
   "repository": {
     "type": "git",
